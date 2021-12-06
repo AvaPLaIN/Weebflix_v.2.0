@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //     * ASSETS
 import background from '../../../assets/images/form-background.jpg';
 
-export const ResetPasswordComponent = styled.div`
+export const ResetPasswordContainer = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;

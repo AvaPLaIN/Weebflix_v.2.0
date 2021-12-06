@@ -1,5 +1,9 @@
 //* IMPORTS
-import { USER_LOGIN_SUCCESS, USER_AUTH_SUCCESS } from '../ducks/user';
+import {
+  USER_LOGIN_SUCCESS,
+  USER_AUTH_SUCCESS,
+  USER_LOGOUT,
+} from '../ducks/user';
 
 export const localStorageMiddleware = ({ getState }) => {
   return (next) => (action) => {
@@ -11,6 +15,10 @@ export const localStorageMiddleware = ({ getState }) => {
 
     if ([USER_AUTH_SUCCESS].includes(result.type)) {
       localStorage.setItem('user', JSON.stringify(getState().user.user));
+    }
+
+    if ([USER_LOGOUT].includes(result.type)) {
+      localStorage.removeItem('user');
     }
 
     return result;

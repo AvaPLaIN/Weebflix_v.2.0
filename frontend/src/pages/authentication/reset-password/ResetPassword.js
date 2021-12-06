@@ -3,7 +3,7 @@
 import React from 'react';
 
 //     * COMPONENTS
-import { ResetPasswordComponent } from './ResetPassword.styled';
+import { ResetPasswordContainer } from './ResetPassword.styled';
 import ResetPasswordForm from '../../../components/forms/reset-password-form/ResetPasswordForm';
 
 //     * REDUX / STATES
@@ -33,9 +33,9 @@ const ResetPassword = () => {
 
   //     * RENDER
   return (
-    <ResetPasswordComponent>
+    <ResetPasswordContainer>
       <ResetPasswordForm />
-    </ResetPasswordComponent>
+    </ResetPasswordContainer>
   );
 };
 

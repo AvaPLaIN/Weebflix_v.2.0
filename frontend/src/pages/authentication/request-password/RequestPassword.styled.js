@@ -10,7 +10,7 @@ import background from '../../../assets/images/form-background.jpg';
 //* LOGIC COMPONENTS
 
 //* STYLED COMPONENTS
-export const RequestPasswordComponent = styled.div`
+export const RequestPasswordContainer = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;

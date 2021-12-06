@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 
 //     * COMPONENTS
-import { ValidateUserComponent } from './ValidateUser.styled';
+import { ValidateUserContainer } from './ValidateUser.styled';
 import Loading from '../../../components/loading/Loading';
 
 //     * REDUX / STATES
@@ -35,7 +35,7 @@ const ValidateUser = () => {
   //     * USE-EFFECT
   useEffect(() => {
     const token = params.token;
-    dispatch(user_validate(token));
+    if (token) dispatch(user_validate(token));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -45,13 +45,13 @@ const ValidateUser = () => {
 
   //     * RENDER
   return (
-    <ValidateUserComponent>
+    <ValidateUserContainer>
       {user.loading ? (
         <Loading />
       ) : (
         (user.message || user.error) && <Navigate to="/" />
       )}
-    </ValidateUserComponent>
+    </ValidateUserContainer>
   );
 };
 

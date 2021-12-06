@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ValidateUserComponent = styled.div`
+export const ValidateUserContainer = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;

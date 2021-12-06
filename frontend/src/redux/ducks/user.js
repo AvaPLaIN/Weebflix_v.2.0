@@ -212,7 +212,7 @@ export const user_logout_success = () => {
   return { type: USER_LOGOUT };
 };
 export const user_logout = () => async (dispatch) => {
-  localStorage.removeItem('data');
+  localStorage.removeItem('user');
   dispatch(user_logout_success());
 };
 
