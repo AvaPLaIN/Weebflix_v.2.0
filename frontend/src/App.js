@@ -10,7 +10,7 @@ import ResetPassword from './pages/authentication/reset-password/ResetPassword';
 import ValidateUser from './pages/authentication/validate-user/ValidateUser';
 
 //     * COMPONENTS
-import { AppComponent } from './App.styled';
+import { AppContainer } from './App.styled';
 
 //     * REDUX / STATES
 import { useSelector, useDispatch } from 'react-redux';
@@ -48,7 +48,7 @@ function App() {
 
   //     * RENDER
   return (
-    <AppComponent>
+    <AppContainer>
       <Routes>
         {user?.isLoggedIn ? (
           <Route path="*" exact element={<Home />} />
@@ -62,7 +62,7 @@ function App() {
           </>
         )}
       </Routes>
-    </AppComponent>
+    </AppContainer>
   );
 }
 

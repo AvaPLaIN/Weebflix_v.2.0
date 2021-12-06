@@ -6,6 +6,32 @@
   --font-size-4: 1.728rem;
   --font-size-5: 2.074rem;
   --font-size-6: 2.488rem;
+
+  /* ! FONT-COLOR ! */
+  --font-color-dark-1: 33, 33, 33;
+  --font-color-dark-2: 66, 66, 66;
+  --font-color-dark-3: 97, 97, 97;
+  --font-color-dark-4: 117, 117, 117;
+  --font-color-dark-5: 158, 158, 158;
+  --font-color-dark-6: 189, 189, 189;
+
+  --font-color-bright-1: 250, 250, 250;
+  --font-color-bright-2: 245, 245, 245;
+  --font-color-bright-3: 238, 238, 238;
+  --font-color-bright-4: 224, 224, 224;
+
+  /* ! BACKGROUND-COLOR ! */
+  --background-color-dark-1: 33, 33, 33;
+  --background-color-dark-2: 66, 66, 66;
+  --background-color-dark-3: 97, 97, 97;
+  --background-color-dark-4: 117, 117, 117;
+  --background-color-dark-5: 158, 158, 158;
+  --background-color-dark-6: 189, 189, 189;
+
+  --background-color-bright-1: 250, 250, 250;
+  --background-color-bright-2: 245, 245, 245;
+  --background-color-bright-3: 238, 238, 238;
+  --background-color-bright-4: 224, 224, 224;
 }
 
 @media screen and (min-width: 800px) {
@@ -17,32 +43,6 @@
     --font-size-4: 2.369rem;
     --font-size-5: 3.157rem;
     --font-size-6: 4.209rem;
-
-    /* ! FONT-COLOR ! */
-    --font-color-dark-1: 33, 33, 33;
-    --font-color-dark-2: 66, 66, 66;
-    --font-color-dark-3: 97, 97, 97;
-    --font-color-dark-4: 117, 117, 117;
-    --font-color-dark-5: 158, 158, 158;
-    --font-color-dark-6: 189, 189, 189;
-
-    --font-color-bright-1: 250, 250, 250;
-    --font-color-bright-2: 245, 245, 245;
-    --font-color-bright-3: 238, 238, 238;
-    --font-color-bright-4: 224, 224, 224;
-
-    /* ! BACKGROUND-COLOR ! */
-    --background-color-dark-1: 33, 33, 33;
-    --background-color-dark-2: 66, 66, 66;
-    --background-color-dark-3: 97, 97, 97;
-    --background-color-dark-4: 117, 117, 117;
-    --background-color-dark-5: 158, 158, 158;
-    --background-color-dark-6: 189, 189, 189;
-
-    --background-color-bright-1: 250, 250, 250;
-    --background-color-bright-2: 245, 245, 245;
-    --background-color-bright-3: 238, 238, 238;
-    --background-color-bright-4: 224, 224, 224;
   }
 }
 

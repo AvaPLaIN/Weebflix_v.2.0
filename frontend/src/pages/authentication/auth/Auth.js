@@ -3,25 +3,46 @@
 import React, { useState } from 'react';
 
 //     * COMPONENTS
-import { AuthComponent } from './Auth.styled';
+import { AuthContainer } from './Auth.styled';
 import LoginForm from '../../../components/forms/login-form/LoginForm';
 import RegisterForm from '../../../components/forms/register-form/RegisterForm';
 
+//     * REDUX / STATES
+
+//     * SERVICES
+
+//     * UTILS
+
+//     * HOOKS
+
+//     * EXTERN LIBRARIES
+
+//     * ASSETS
+
 const Auth = () => {
-  //* USE-STATE
+  //     * INIT
+
+  //     * STATES
   const [showSignUp, setShowSignUp] = useState(false);
 
-  //* HANDLER
+  //     * REFS
+
+  //     * USE-EFFECT
+
+  //     * HANDLERS
   const handleChangeForm = () => setShowSignUp((prev) => !prev);
 
+  //     * EVENTS
+
+  //     * RENDER
   return (
-    <AuthComponent>
+    <AuthContainer>
       {showSignUp ? (
         <RegisterForm showLogin={handleChangeForm} />
       ) : (
         <LoginForm showRegister={handleChangeForm} />
       )}
-    </AuthComponent>
+    </AuthContainer>
   );
 };
 

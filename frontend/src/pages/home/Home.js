@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 
 //     * COMPONENTS
-import { HomeComponent } from './Home.styled';
+import { HomeContainer } from './Home.styled';
 
 //     * REDUX / STATES
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,7 +44,7 @@ const Home = () => {
 
   //     * RENDER
 
-  return <HomeComponent>Home</HomeComponent>;
+  return <HomeContainer>Home</HomeContainer>;
 };
 
 export default Home;

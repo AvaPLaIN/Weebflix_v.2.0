@@ -5,7 +5,7 @@ import styled from 'styled-components';
 //     * ASSETS
 import background from '../../../assets/images/form-background.jpg';
 
-export const AuthComponent = styled.div`
+export const AuthContainer = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
