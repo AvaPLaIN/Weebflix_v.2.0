@@ -4,6 +4,8 @@ import React, { useEffect } from 'react';
 
 //     * COMPONENTS
 import { HomeContainer } from './Home.styled';
+import Navbar from '../../components/navbar/Navbar';
+import HighlightList from '../../components/highlight-list/HighlightList';
 
 //     * REDUX / STATES
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,7 +46,29 @@ const Home = () => {
 
   //     * RENDER
 
-  return <HomeContainer>Home</HomeContainer>;
+  return (
+    <HomeContainer>
+      <Navbar />
+      <HighlightList />
+      <div className="list">
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
+        </h1>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
+        </h1>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
+        </h1>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
+        </h1>
+        <h1>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
+        </h1>
+      </div>
+    </HomeContainer>
+  );
 };
 
 export default Home;
