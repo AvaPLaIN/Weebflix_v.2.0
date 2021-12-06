@@ -6,11 +6,11 @@ export const localStorageMiddleware = ({ getState }) => {
     const result = next(action);
 
     if ([USER_LOGIN_SUCCESS].includes(result.type)) {
-      localStorage.setItem('data', JSON.stringify(getState().user));
+      localStorage.setItem('user', JSON.stringify(getState().user.user));
     }
 
     if ([USER_AUTH_SUCCESS].includes(result.type)) {
-      localStorage.setItem('data', JSON.stringify(getState().user));
+      localStorage.setItem('user', JSON.stringify(getState().user.user));
     }
 
     return result;
@@ -18,8 +18,7 @@ export const localStorageMiddleware = ({ getState }) => {
 };
 
 export const loadLocalStorage = () => {
-  const data = JSON.parse(localStorage.getItem('data'));
+  const data = JSON.parse(localStorage.getItem('user'));
   if (!data || !Object.keys(data).length) return undefined;
-  return { user: { ...data, isLoggedIn: false } };
-  //return { ...data, user: { ...data.user, isLoggedIn: false } };
+  return { user: { user: data, isLoggedIn: false } };
 };
