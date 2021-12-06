@@ -1,24 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+//* IMPORTS
+//     * REACT
+import React, { useEffect } from 'react';
+
+//     * PAGES
+import Home from './pages/home/Home';
+import Auth from './pages/authentication/auth/Auth';
+import RequestPassword from './pages/authentication/request-password/RequestPassword';
+import ResetPassword from './pages/authentication/reset-password/ResetPassword';
+import ValidateUser from './pages/authentication/validate-user/ValidateUser';
+
+//     * COMPONENTS
+import { AppComponent } from './App.styled';
+
+//     * REDUX / STATES
+import { useSelector, useDispatch } from 'react-redux';
+import { user_auth } from './redux/ducks/user';
+
+//     * SERVICES
+
+//     * UTILS
+
+//     * HOOKS
+
+//     * EXTERN LIBRARIES
+import { Routes, Route } from 'react-router-dom';
+
+//     * ASSETS
 
 function App() {
+  //     * INIT
+  const dispatch = useDispatch();
+
+  //     * STATES
+  const user = useSelector((state) => state?.user);
+
+  //     * REFS
+
+  //     * USE-EFFECT
+  useEffect(() => {
+    if (user?.user) dispatch(user_auth(user?.user));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  //     * HANDLERS
+
+  //     * EVENTS
+
+  //     * RENDER
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppComponent>
+      <Routes>
+        {user?.isLoggedIn ? (
+          <Route path="*" exact element={<Home />} />
+        ) : (
+          <>
+            <Route path="/" element={<Auth />} />
+            <Route path="/resetPassword" element={<RequestPassword />} />
+            <Route path="/resetPassword/:token" element={<ResetPassword />} />
+            <Route path="/validate/:token" element={<ValidateUser />} />
+            <Route path="*" element={<Auth />} />
+          </>
+        )}
+      </Routes>
+    </AppComponent>
   );
 }
 
