@@ -36,6 +36,9 @@ export const ItemInfo = styled.div`
   }
 
   .details {
+    min-height: max-content;
+    max-height: 300px;
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -51,7 +54,15 @@ export const ItemInfo = styled.div`
 
     .description {
       color: rgb(var(--font-color-dark-5));
-      font-size: var(--font-size-5);
+      font-size: var(--font-size-4);
+      overflow-y: scroll;
+
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .version {

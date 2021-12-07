@@ -7,8 +7,10 @@ import { HighlightListContainer } from './HighlightList.styled';
 import HighlightItem from '../highlight-item/HighlightItem';
 
 //     * REDUX / STATES
+import { useSelector } from 'react-redux';
 
 //     * SERVICES
+import { getHighlightAnimeList } from '../../services/anime';
 
 //     * UTILS
 
@@ -22,21 +24,6 @@ import { AnimatePresence } from 'framer-motion';
 import { wrap } from 'popmotion';
 
 //     * ASSETS
-//! TEST DATA IMAGES
-const images = [
-  {
-    img: 'https://images8.alphacoders.com/118/thumb-1920-1180819.jpg',
-    id: 123,
-  },
-  {
-    img: 'https://images2.alphacoders.com/100/thumb-1920-1007550.jpg',
-    id: 234,
-  },
-  {
-    img: 'https://www.whatspaper.com/wp-content/uploads/2021/10/demon-slayer-wallpaper-whatspaper-8.jpg',
-    id: 345,
-  },
-];
 
 //! FRAMER MOTION OPTIONS
 const variants = {
@@ -67,11 +54,24 @@ const HighlightList = () => {
   //     * INIT
 
   //     * STATES
+  //          ! REDUX
+  const accessToken = useSelector((state) => state?.user?.user?.accessToken);
+  //          ! STATE
+  const [highlightAnimes, setHighlightAnimes] = useState([]);
   const [[page, direction], setPage] = useState([0, 0]);
 
   //     * REFS
 
   //     * USE-EFFECT
+  useEffect(() => {
+    const fetchHighlightList = async () => {
+      const data = await getHighlightAnimeList(accessToken);
+      if (data.success) setHighlightAnimes(data?.data);
+    };
+
+    fetchHighlightList();
+  }, [accessToken]);
+
   useEffect(() => {
     const interval = setTimeout(() => {
       paginate(1);
@@ -87,7 +87,7 @@ const HighlightList = () => {
   };
 
   //     * EVENTS
-  const imageIndex = wrap(0, images?.length, page);
+  const sliderIndex = wrap(0, highlightAnimes?.length, page);
   const debouncedSetSliderIndex = debounce((value) => paginate(value), 500);
 
   //     * RENDER
@@ -110,7 +110,7 @@ const HighlightList = () => {
         <AnimatePresence initial={false} custom={direction}>
           <HighlightItem
             key={page}
-            anime={images[imageIndex]}
+            anime={highlightAnimes[sliderIndex]}
             custom={direction}
             variants={variants}
             initial="enter"

@@ -43,22 +43,16 @@ const HighlightItem = ({ anime }) => {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: -300, opacity: 0 }}
     >
-      <ItemImage src={anime?.img} alt="" />
+      <ItemImage src={anime?.banner} alt="" />
       <ItemInfo>
-        <img
-          className="logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Kimetsu_no_Yaiba_logo.svg/280px-Kimetsu_no_Yaiba_logo.svg.png"
-          alt=""
-        />
+        <img className="logo" src={anime?.logo} alt="" />
         <div className="details">
-          <h1 className="title">Demon Slayer: Kimetsu no Yaiba</h1>
-          <p className="description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
-            libero? Esse earum architecto nemo optio ipsam magnam velit.
-            Dolorem, minima!
-          </p>
+          <h1 className="title">{anime?.title}</h1>
+          <p className="description">{anime?.description}</p>
           <div className="version">
-            <span>Sub</span>
+            <span>
+              {anime?.title?.toLowerCase().includes('dub') ? 'DUB' : 'SUB'}
+            </span>
           </div>
         </div>
         <div className="buttons">
