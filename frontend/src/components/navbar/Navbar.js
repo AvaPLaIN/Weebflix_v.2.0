@@ -38,7 +38,7 @@ const Navbar = () => {
   //     * RENDER
   return (
     <NavbarContainer windowIsScrolled={windowIsScrolled}>
-      Navbar
+      Navbaraaaaaaaaaaaaa
     </NavbarContainer>
   );
 };

@@ -57,6 +57,10 @@ html {
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 h1 {
   font-size: var(--font-size-6);
 }
@@ -74,4 +78,10 @@ h5 {
 }
 h6 {
   font-size: var(--font-size-1);
+}
+
+a,
+p {
+  text-decoration: none;
+  color: rgb(var(--font-color-dark-6));
 }

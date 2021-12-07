@@ -12,11 +12,13 @@ const getWindowIsScroller = (props) => {
 };
 
 //* STYLED COMPONENTS
-export const NavbarContainer = styled.div`
+export const NavbarContainer = styled.nav`
+  z-index: 999;
   position: fixed;
   top: 0;
   width: 100%;
   height: 7rem;
   transition: all 0.2s ease-in;
+  color: rgb(var(--font-color-bright-4));
   ${getWindowIsScroller}
 `;

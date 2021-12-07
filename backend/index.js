@@ -10,13 +10,13 @@ const app = express();
 
 //! IMPORT ROUTES
 const authRoute = require('./routes/auth');
-const dataRoute = require('./routes/data');
+const animeRoute = require('./routes/anime');
 
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 
 app.use('/api/auth', authRoute);
-app.use('/api/data', dataRoute);
+app.use('/api/anime', animeRoute);
 
 app.use(errorHandler);
 
