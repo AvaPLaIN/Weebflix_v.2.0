@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 //     * COMPONENTS
-import { NavbarContainer } from './Navbar.styled';
+import { NavbarContainer, NavigationContainer } from './Navbar.styled';
 
 //     * REDUX / STATES
 
@@ -17,6 +17,7 @@ import { NavbarContainer } from './Navbar.styled';
 import { Link } from 'react-router-dom';
 
 //     * ASSETS
+
 const Navbar = () => {
   //     * INIT
 
@@ -38,7 +39,18 @@ const Navbar = () => {
   //     * RENDER
   return (
     <NavbarContainer windowIsScrolled={windowIsScrolled}>
-      Navbaraaaaaaaaaaaaa
+      <NavigationContainer>
+        <Link to="/">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
+            alt=""
+          />
+        </Link>
+        <Link to="/">Animes</Link>
+        <Link to="/">Movies</Link>
+        <Link to="/">Rating</Link>
+        <Link to="/">My List</Link>
+      </NavigationContainer>
     </NavbarContainer>
   );
 };

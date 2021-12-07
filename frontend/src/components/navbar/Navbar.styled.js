@@ -21,4 +21,37 @@ export const NavbarContainer = styled.nav`
   transition: all 0.2s ease-in;
   color: rgb(var(--font-color-bright-4));
   ${getWindowIsScroller}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const NavigationContainer = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 3rem;
+
+  a {
+    font-size: var(--font-size-3);
+    color: rgb(var(--font-color-bright-1));
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+
+    &:nth-child(2) {
+      margin-left: 3rem;
+    }
+
+    &:hover {
+      background-color: rgba(var(--background-color-dark-2), 0.2);
+    }
+  }
+
+  img {
+    height: 3.5rem;
+  }
 `;
