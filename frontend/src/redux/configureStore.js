@@ -1,26 +1,28 @@
 //* IMPORTS
 //     * REDUX
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunkMiddleware from "redux-thunk";
 import {
   localStorageMiddleware,
   loadLocalStorage,
-} from './middleware/localStorage';
+} from "./middleware/localStorage";
 
 //     * REDUCERS
-import userReducer, { USER_LOGOUT } from './ducks/user';
+import userReducer, { USER_LOGOUT } from "./ducks/user";
+import animeReducer from "./ducks/anime";
 
 //* MIDDLEWARE
 let middleware = [];
 const loggerMiddleware = createLogger({});
-if (process.env.NODE_ENV !== 'production')
+if (process.env.NODE_ENV !== "production")
   middleware = [...middleware, loggerMiddleware];
 middleware = [...middleware, thunkMiddleware, localStorageMiddleware];
 
 //* STATES
 const appReducer = combineReducers({
   user: userReducer,
+  anime: animeReducer,
 });
 
 const rootReducer = (state, action) => {

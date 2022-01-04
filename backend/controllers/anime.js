@@ -1,6 +1,7 @@
 //* IMPORTS
-const ErrorResponse = require('../utils/errorResponse');
-const Anime = require('../models/Anime');
+const ErrorResponse = require("../utils/errorResponse");
+const { Anime } = require("../models/Anime");
+const { AnimeProgress } = require("../models/AnimeProgress");
 
 exports.getHighlightList = async (req, res, next) => {
   try {
@@ -9,11 +10,48 @@ exports.getHighlightList = async (req, res, next) => {
     ]);
 
     if (!highlightAnimeList)
-      return next(new ErrorResponse('No Data found', 400));
+      return next(new ErrorResponse("No Data found", 400));
 
     res.status(200).json({
       success: true,
       data: highlightAnimeList,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getProgressList = async (req, res, next) => {
+  try {
+    if (!req.user.progress.length)
+      return next(new ErrorResponse("No Progress found", 400));
+
+    const { progress } = await req.user.populate({
+      path: "progress",
+      populate: {
+        path: "anime_id",
+        model: "Anime",
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: progress,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getAnimeById = async (req, res, next) => {
+  try {
+    const animeById = await Anime.findOne({ _id: req.params.id });
+
+    if (!animeById) return next(new ErrorResponse("No Data found", 404));
+
+    res.status(200).json({
+      success: true,
+      data: animeById,
     });
   } catch (error) {
     next(error);

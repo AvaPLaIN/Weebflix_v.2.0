@@ -1,27 +1,27 @@
 //* IMPORTS
 //     * REACT
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 //     * COMPONENTS
-import { HighlightListContainer } from './HighlightList.styled';
-import HighlightItem from '../highlight-item/HighlightItem';
+import { HighlightListContainer } from "./HighlightList.styled";
+import HighlightItem from "../highlight-item/HighlightItem";
 
 //     * REDUX / STATES
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 //     * SERVICES
-import { getHighlightAnimeList } from '../../services/anime';
+import { getHighlightAnimeList } from "../../../services/anime";
 
 //     * UTILS
 
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import debounce from 'lodash.debounce';
-import { AnimatePresence } from 'framer-motion';
-import { wrap } from 'popmotion';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import debounce from "lodash.debounce";
+import { AnimatePresence } from "framer-motion";
+import { wrap } from "popmotion";
 
 //     * ASSETS
 
@@ -117,7 +117,7 @@ const HighlightList = () => {
             animate="center"
             exit="exit"
             transition={{
-              x: { type: 'spring', stiffness: 300, damping: 30 },
+              x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
           />

@@ -1,20 +1,16 @@
 //* IMPORTS
 //     * REACT
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from "react";
 
 //     * PAGES
-import Home from './pages/home/Home';
-import Auth from './pages/authentication/auth/Auth';
-import RequestPassword from './pages/authentication/request-password/RequestPassword';
-import ResetPassword from './pages/authentication/reset-password/ResetPassword';
-import ValidateUser from './pages/authentication/validate-user/ValidateUser';
 
 //     * COMPONENTS
-import { AppContainer } from './App.styled';
+import { AppContainer } from "./App.styled";
+import Loading from "./components/loading/Loading";
 
 //     * REDUX / STATES
-import { useSelector, useDispatch } from 'react-redux';
-import { user_auth } from './redux/ducks/user';
+import { useSelector, useDispatch } from "react-redux";
+import { user_auth } from "./redux/ducks/user";
 
 //     * SERVICES
 
@@ -23,9 +19,28 @@ import { user_auth } from './redux/ducks/user';
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 //     * ASSETS
+
+//     * PAGES - lazy
+const Home = lazy(() => import("./pages/home/Home"));
+const Anime = lazy(() => import("./pages/anime/Anime"));
+const Auth = lazy(() => import("./pages/authentication/auth/Auth"));
+const RequestPassword = lazy(() =>
+  import("./pages/authentication/request-password/RequestPassword")
+);
+const ResetPassword = lazy(() =>
+  import("./pages/authentication/reset-password/ResetPassword")
+);
+const ValidateUser = lazy(() =>
+  import("./pages/authentication/validate-user/ValidateUser")
+);
+
+//     * COMPONENTS - lazy
+const Info = lazy(() => import("./components/anime/info/Info"));
+const Player = lazy(() => import("./components/anime/player/Player"));
+const Similar = lazy(() => import("./components/anime/similar/Similar"));
 
 function App() {
   //     * INIT
@@ -48,21 +63,35 @@ function App() {
 
   //     * RENDER
   return (
-    <AppContainer>
-      <Routes>
-        {user?.isLoggedIn ? (
-          <Route path="*" exact element={<Home />} />
-        ) : (
-          <>
-            <Route path="/" element={<Auth />} />
-            <Route path="/resetPassword" element={<RequestPassword />} />
-            <Route path="/resetPassword/:token" element={<ResetPassword />} />
-            <Route path="/validate/:token" element={<ValidateUser />} />
-            <Route path="*" element={<Auth />} />
-          </>
-        )}
-      </Routes>
-    </AppContainer>
+    <Suspense fallback={<Loading />}>
+      <AppContainer>
+        <Routes>
+          {user?.isLoggedIn ? (
+            <>
+              <Route
+                path="*"
+                exact
+                element={<Home />}
+                activeClassName="active"
+              />
+              <Route path="anime/:id" element={<Anime />}>
+                <Route path="info" element={<Info />} />
+                <Route path="player" element={<Player />} />
+                <Route path="similar" element={<Similar />} />
+              </Route>
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<Auth />} />
+              <Route path="/resetPassword" element={<RequestPassword />} />
+              <Route path="/resetPassword/:token" element={<ResetPassword />} />
+              <Route path="/validate/:token" element={<ValidateUser />} />
+              <Route path="*" element={<Auth />} />
+            </>
+          )}
+        </Routes>
+      </AppContainer>
+    </Suspense>
   );
 }
 

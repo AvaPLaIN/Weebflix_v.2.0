@@ -1,47 +1,53 @@
 //* IMPORTS
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+const { AnimeProgressSchema } = require("./AnimeProgress");
 
 //     * VALIDATE
 const {
   validateEmail,
   validateUsername,
   validatePassword,
-} = require('../utils/validate');
+} = require("../utils/validate");
 
 //! SCHEMA
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, 'Provide username'],
+    required: [true, "Provide username"],
     trim: true,
     minlength: 3,
     maxlength: 30,
     match: [
       /^(?=.{3,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-      'Provide valid username',
+      "Provide valid username",
     ],
   },
   email: {
     type: String,
-    required: [true, 'Provide email'],
+    required: [true, "Provide email"],
     lowercase: true,
     trim: true,
     minlength: 2,
     unique: true,
     match: [
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      'Provide valid email',
+      "Provide valid email",
     ],
   },
   password: {
     type: String,
-    required: [true, 'Provide password '],
+    required: [true, "Provide password"],
     trim: true,
     minlength: 8,
     select: false,
+  },
+  progress: {
+    type: [mongoose.SchemaTypes.ObjectId],
+    ref: "AnimeProgress",
+    default: [],
   },
   createdAt: {
     type: Date,
@@ -60,8 +66,8 @@ const UserSchema = new mongoose.Schema({
 
 //! USER MIDDLEWARE
 //     ! BCRYPT PASSWORD
-UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) next();
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) next();
 
   const salt = await bcrypt.genSalt(10);
 
@@ -89,12 +95,12 @@ UserSchema.methods.getSignedJwtRefreshToken = function () {
 };
 
 UserSchema.methods.getResetPasswordToken = function () {
-  const resetToken = crypto.randomBytes(20).toString('hex');
+  const resetToken = crypto.randomBytes(20).toString("hex");
 
   this.resetPasswordToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(resetToken)
-    .digest('hex');
+    .digest("hex");
 
   this.resetPasswordExpire = Date.now() + 10 * (60 * 1000); // Ten Minutes
 
@@ -102,16 +108,16 @@ UserSchema.methods.getResetPasswordToken = function () {
 };
 
 UserSchema.methods.getValidateToken = function () {
-  const verifyToken = crypto.randomBytes(20).toString('hex');
+  const verifyToken = crypto.randomBytes(20).toString("hex");
 
   this.verifiedToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(verifyToken)
-    .digest('hex');
+    .digest("hex");
 
   return verifyToken;
 };
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
-module.exports = User;
+module.exports = { User, UserSchema };

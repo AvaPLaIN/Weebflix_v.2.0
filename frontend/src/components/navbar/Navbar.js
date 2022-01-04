@@ -1,9 +1,9 @@
 //* IMPORTS
 //     * REACT
-import { useState } from 'react';
+import { useState, useCallback } from "react";
 
 //     * COMPONENTS
-import { NavbarContainer, NavigationContainer } from './Navbar.styled';
+import { NavbarContainer, NavigationContainer } from "./Navbar.styled";
 
 //     * REDUX / STATES
 
@@ -14,7 +14,7 @@ import { NavbarContainer, NavigationContainer } from './Navbar.styled';
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 //     * ASSETS
 
@@ -31,25 +31,33 @@ const Navbar = () => {
   //     * HANDLERS
 
   //     * EVENTS
-  window.onscroll = () => {
+  window.onscroll = useCallback(() => {
     setWindowIsScrolled(window.pageYOffset ? true : false);
     return () => (window.onscroll = null);
-  };
+  }, []);
 
   //     * RENDER
   return (
     <NavbarContainer windowIsScrolled={windowIsScrolled}>
       <NavigationContainer>
-        <Link to="/">
+        <NavLink to="/" activeClassName="selected">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
           />
-        </Link>
-        <Link to="/">Animes</Link>
-        <Link to="/">Movies</Link>
-        <Link to="/">Rating</Link>
-        <Link to="/">My List</Link>
+        </NavLink>
+        <NavLink to="/animes" activeClassName="selected">
+          Animes
+        </NavLink>
+        <NavLink to="/movies" activeClassName="selected">
+          Movies
+        </NavLink>
+        <NavLink to="/rating" activeClassName="selected">
+          Rating
+        </NavLink>
+        <NavLink to="/mylist" activeClassName="selected">
+          My List
+        </NavLink>
       </NavigationContainer>
     </NavbarContainer>
   );

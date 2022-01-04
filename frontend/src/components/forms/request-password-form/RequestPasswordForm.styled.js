@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const RequestPasswordFormComponent = styled.div`
   width: clamp(250px, 100%, 450px);
@@ -35,7 +35,7 @@ export const RequestPasswordFormComponent = styled.div`
         label {
           cursor: pointer;
           font-weight: 400;
-          font-size: var(--font-size-text-small);
+          font-size: var(--font-size-1);
         }
 
         .input-container {
@@ -45,7 +45,7 @@ export const RequestPasswordFormComponent = styled.div`
           border-bottom: 1px solid grey;
 
           .icon {
-            color: var(--font-color-normal);
+            color: rgb(var(--font-color-dark-1));
             font-size: 2rem;
 
             &.show-password {
@@ -76,7 +76,7 @@ export const RequestPasswordFormComponent = styled.div`
     }
 
     button {
-      font-size: var(--font-size-text-big);
+      font-size: var(--font-size-4);
       margin-top: 5rem;
       width: 100%;
       padding: 1rem;
@@ -84,8 +84,8 @@ export const RequestPasswordFormComponent = styled.div`
       border: none;
       outline: none;
       cursor: pointer;
-      background-color: var(--background-color-main);
-      color: var(--font-color-white);
+      background-color: rgb(var(--background-color-dark-1));
+      color: rgb(var(--font-color-bright-2));
       transition: all 0.2s ease-in-out;
 
       &:hover:enabled {
@@ -99,14 +99,14 @@ export const RequestPasswordFormComponent = styled.div`
 
     .server-error {
       margin-top: 2rem;
-      color: var(--font-color-failure);
-      font-size: var(--font-size-text-small);
+      color: rgb(var(--font-color-error));
+      font-size: var(--font-size-2);
     }
 
     .server-message {
       margin-top: 2rem;
-      color: var(--font-color-success);
-      font-size: var(--font-size-text-small);
+      color: rgb(var(--font-color-success));
+      font-size: var(--font-size-1);
     }
   }
 `;

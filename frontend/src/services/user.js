@@ -1,8 +1,8 @@
 //* IMPORTS
-import axios from 'axios';
+import axios from "axios";
 
 //* CONSTANTS
-const PROXY_URL = 'http://localhost:8800/api/auth';
+const PROXY_URL = "http://localhost:8800/api/auth";
 
 //* SERVICES
 export const register = async (credentials) => {
@@ -17,6 +17,7 @@ export const register = async (credentials) => {
 export const login = async (credentials) => {
   try {
     const data = await axios.post(`${PROXY_URL}/login`, credentials);
+    console.log("login data: ", data);
     return data?.data;
   } catch (error) {
     return error.response.data;

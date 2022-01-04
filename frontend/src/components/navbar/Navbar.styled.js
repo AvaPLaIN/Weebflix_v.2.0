@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 //* EVENT COMPONENTS
 const windowIsScrolled = css`
@@ -48,6 +48,11 @@ export const NavigationContainer = styled.nav`
 
     &:hover {
       background-color: rgba(var(--background-color-dark-2), 0.2);
+    }
+
+    &.active {
+      background-color: rgba(var(--background-color-dark-1), 0.8);
+      border: 1px solid white;
     }
   }
 

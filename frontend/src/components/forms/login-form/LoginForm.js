@@ -1,14 +1,14 @@
 //* IMPORTS
 //     * REACT
-import React, { useState } from 'react';
+import { useState, useCallback } from "react";
 
 //     * COMPONENTS
-import { LoginFormComponent } from './LoginForm.styled';
-import Loading from '../../loading/Loading';
+import { LoginFormComponent } from "./LoginForm.styled";
+import Loading from "../../loading/Loading";
 
 //     * REDUX / STATES
-import { useDispatch, useSelector } from 'react-redux';
-import { user_login } from '../../../redux/ducks/user';
+import { useDispatch, useSelector } from "react-redux";
+import { user_login } from "../../../redux/ducks/user";
 
 //     * SERVICES
 
@@ -17,19 +17,19 @@ import { user_login } from '../../../redux/ducks/user';
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faUnlockAlt,
   faEye,
   faEyeSlash,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
   faTwitter,
   faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
+} from "@fortawesome/free-brands-svg-icons";
 
 //     * ASSETS
 
@@ -40,31 +40,34 @@ const LoginForm = ({ showRegister }) => {
   //     * STATES
   const user = useSelector((state) => state.user);
   //          ! FORM STATES
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   //     * REFS
 
   //     * USE-EFFECT
 
-  //     * HANDLERS
-  const handleLogin = (event) => {
-    event.preventDefault();
-    dispatch(user_login({ email, password }));
-
-    resetForm();
-  };
-
-  const handleToggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
-
   //     * EVENTS
-  const resetForm = () => {
-    setEmail('');
-    setPassword('');
-  };
+  const resetForm = useCallback(() => {
+    setEmail("");
+    setPassword("");
+  }, []);
+
+  //     * HANDLERS
+  const handleLogin = useCallback(
+    (event) => {
+      event.preventDefault();
+      dispatch(user_login({ email, password }));
+
+      resetForm();
+    },
+    [dispatch, email, password, resetForm]
+  );
+
+  const handleToggleShowPassword = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
 
   //     * RENDER
   return (
@@ -96,7 +99,7 @@ const LoginForm = ({ showRegister }) => {
             <div className="input-container">
               <FontAwesomeIcon className="icon" icon={faUnlockAlt} />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="Password..."
                 value={password}
@@ -117,7 +120,7 @@ const LoginForm = ({ showRegister }) => {
         <Link to="/resetPassword">Forgot password?</Link>
 
         <button type="submit" disabled={user.loading}>
-          {user.loading ? <Loading /> : 'Login'}
+          {user.loading ? <Loading /> : "Login"}
         </button>
 
         <p className="server-error">{user.error}</p>

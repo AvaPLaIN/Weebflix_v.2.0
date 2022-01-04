@@ -1,14 +1,14 @@
 //* IMPORTS
 //     * REACT
-import React, { useState } from 'react';
+import { useState, useCallback } from "react";
 
 //     * COMPONENTS
-import { RequestPasswordFormComponent } from './RequestPasswordForm.styled';
-import Loading from '../../loading/Loading';
+import { RequestPasswordFormComponent } from "./RequestPasswordForm.styled";
+import Loading from "../../loading/Loading";
 
 //     * REDUX / STATES
-import { useDispatch, useSelector } from 'react-redux';
-import { user_request_password } from '../../../redux/ducks/user';
+import { useDispatch, useSelector } from "react-redux";
+import { user_request_password } from "../../../redux/ducks/user";
 
 //     * SERVICES
 
@@ -17,9 +17,9 @@ import { user_request_password } from '../../../redux/ducks/user';
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 //     * ASSETS
 
@@ -30,24 +30,27 @@ const RequestPasswordForm = () => {
   //     * STATES
   const user = useSelector((state) => state.user);
   //          ! FORM STATES
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   //     * REFS
 
   //     * USE-EFFECT
 
-  //     * HANDLERS
-  const handleRequestPassword = (event) => {
-    event.preventDefault();
-    dispatch(user_request_password(email));
-
-    resetForm();
-  };
-
   //     * EVENTS
-  const resetForm = () => {
-    setEmail('');
-  };
+  const resetForm = useCallback(() => {
+    setEmail("");
+  }, []);
+
+  //     * HANDLERS
+  const handleRequestPassword = useCallback(
+    (event) => {
+      event.preventDefault();
+      dispatch(user_request_password(email));
+
+      resetForm();
+    },
+    [dispatch, email, resetForm]
+  );
 
   //     * RENDER
   return (
@@ -75,7 +78,7 @@ const RequestPasswordForm = () => {
         </div>
 
         <button type="submit" disabled={user.loading}>
-          {user.loading ? <Loading /> : 'Request new password'}
+          {user.loading ? <Loading /> : "Request new password"}
         </button>
 
         <p className="server-error">{user.error}</p>

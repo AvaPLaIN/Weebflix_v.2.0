@@ -1,30 +1,30 @@
 //* IMPORTS
-const crypto = require('crypto');
-const User = require('../models/User');
-const ErrorResponse = require('../utils/errorResponse');
-const jwt = require('jsonwebtoken');
-const sendEmail = require('../utils/sendEmail');
+const crypto = require("crypto");
+const { User } = require("../models/User");
+const ErrorResponse = require("../utils/errorResponse");
+const jwt = require("jsonwebtoken");
+const sendEmail = require("../utils/sendEmail");
 
 //     * VALIDATE
 const {
   validateUsername,
   validatePassword,
   validateEmail,
-} = require('../utils/validate');
+} = require("../utils/validate");
 
 exports.register = async (req, res, next) => {
   const { username, email, password, confirmPassword } = req.body;
 
   //* INPUT VALIDATION
   if (password != confirmPassword)
-    return next(new ErrorResponse('Passwords do not match', 400));
+    return next(new ErrorResponse("Passwords do not match", 400));
 
   if (
     !validateUsername(username) ||
     !validatePassword(password) ||
     !validateEmail(email)
   )
-    return next(new ErrorResponse('Provide valid Credentials', 400));
+    return next(new ErrorResponse("Provide valid Credentials", 400));
 
   try {
     const user = await User.create({
@@ -38,7 +38,7 @@ exports.register = async (req, res, next) => {
     await user.save();
 
     const verifyUrl = `${
-      process.env.BACKEND_API_URL || 'http://localhost:3000'
+      process.env.BACKEND_API_URL || "http://localhost:3000"
     }/validate/${verifyToken}`;
     const message = `
       <h1>Please verify your Email!</h1>
@@ -48,18 +48,18 @@ exports.register = async (req, res, next) => {
     try {
       const emailExists = await sendEmail({
         to: user.email,
-        subject: 'Ava Email Verification',
+        subject: "Ava Email Verification",
         html: message,
       });
 
       if (emailExists)
         return res.status(200).json({
           success: true,
-          data: 'Registered Successfully - Check your Emails',
+          data: "Registered Successfully - Check your Emails",
         });
 
       await User.findOneAndDelete({ email });
-      return next(new ErrorResponse('Email doesnt exists', 400));
+      return next(new ErrorResponse("Email doesnt exists", 400));
     } catch (error) {
       await User.findOneAndDelete({ email });
       next(error);
@@ -73,18 +73,18 @@ exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
-    return next(new ErrorResponse('Provide Credentials', 400));
+    return next(new ErrorResponse("Provide Credentials", 400));
 
   try {
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select("+password");
 
-    if (!user) return next(new ErrorResponse('Invalid Credentials', 401));
-    if (!user.verified) return next(new ErrorResponse('Verify Email', 403));
+    if (!user) return next(new ErrorResponse("Invalid Credentials", 401));
+    if (!user.verified) return next(new ErrorResponse("Verify Email", 403));
 
     const passwordMatch = await user.comparePasswords(password);
 
     if (!passwordMatch)
-      return next(new ErrorResponse('Invalid Credentials', 401));
+      return next(new ErrorResponse("Invalid Credentials", 401));
 
     sendUserAuth(user, 200, res);
   } catch (error) {
@@ -94,21 +94,21 @@ exports.login = async (req, res, next) => {
 
 exports.validate = async (req, res, next) => {
   const verifiedToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(req.params.validateToken)
-    .digest('hex');
+    .digest("hex");
 
   try {
     const user = await User.findOne({ verifiedToken });
 
-    if (!user) return next(new ErrorResponse('Couldnt Verify User', 400));
+    if (!user) return next(new ErrorResponse("Couldnt Verify User", 400));
 
     user.verified = true;
     user.verifiedToken = undefined;
 
     await user.save();
 
-    return res.status(201).json({ success: true, data: 'User verified' });
+    return res.status(201).json({ success: true, data: "User verified" });
   } catch (error) {
     next(error);
   }
@@ -118,7 +118,7 @@ exports.verify = async (req, res, next) => {
   const { username, email, id, accessToken, refreshToken } = req.body;
 
   if (!username || !email || !id || !accessToken || !refreshToken)
-    return next(new ErrorResponse('Provide Credentials', 400));
+    return next(new ErrorResponse("Provide Credentials", 400));
 
   try {
     const decodedAccessToken = jwt.verify(
@@ -134,11 +134,11 @@ exports.verify = async (req, res, next) => {
     const refreshTokenExpired = decodedRefreshToken.exp < Date.now() / 1000;
 
     if (accessTokenExpired && refreshTokenExpired)
-      return next(new ErrorResponse('Please login again', 401));
+      return next(new ErrorResponse("Please login again", 401));
 
     const user = await User.findById(id);
 
-    if (!user) return next(new ErrorResponse('Error', 400));
+    if (!user) return next(new ErrorResponse("Error", 400));
 
     //TODO compare user values -> logout when different
     //TODO save accessToken, refreshToken in User -> only allow when match
@@ -154,12 +154,12 @@ exports.forgotPassword = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return next(new ErrorResponse('Email couldnt be sent', 404));
+    if (!user) return next(new ErrorResponse("Email couldnt be sent", 404));
     const resetToken = user.getResetPasswordToken();
     await user.save();
 
     const resetUrl = `${
-      process.env.BACKEND_API_URL || 'http://localhost:3000'
+      process.env.BACKEND_API_URL || "http://localhost:3000"
     }/resetPassword/${resetToken}`;
     const message = `
       <h1>You´ve requested a new Password</h1>
@@ -169,18 +169,18 @@ exports.forgotPassword = async (req, res, next) => {
     try {
       await sendEmail({
         to: user.email,
-        subject: 'Ava Password Reset',
+        subject: "Ava Password Reset",
         html: message,
       });
 
-      res.status(200).json({ success: true, data: 'Check your Emails' });
+      res.status(200).json({ success: true, data: "Check your Emails" });
     } catch (error) {
       user.resetPasswordToken = undefined;
       user.resetPasswordExpire = undefined;
 
       await user.save();
 
-      return next(new ErrorResponse('Email couldnt be send'), 500);
+      return next(new ErrorResponse("Email couldnt be send"), 500);
     }
   } catch (error) {
     next(error);
@@ -192,15 +192,15 @@ exports.resetPassword = async (req, res, next) => {
 
   //* INPUT VALIDATION
   if (password != confirmPassword)
-    return next(new ErrorResponse('Passwords do not match', 400));
+    return next(new ErrorResponse("Passwords do not match", 400));
 
   if (!validatePassword(password))
-    return next(new ErrorResponse('Provide valid password', 400));
+    return next(new ErrorResponse("Provide valid password", 400));
 
   const resetPasswordToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(req.params.resetToken)
-    .digest('hex');
+    .digest("hex");
 
   try {
     const user = await User.findOne({
@@ -208,7 +208,7 @@ exports.resetPassword = async (req, res, next) => {
       resetPasswordExpire: { $gt: Date.now() },
     });
 
-    if (!user) return next(new ErrorResponse('Invalid Reset Token'), 400);
+    if (!user) return next(new ErrorResponse("Invalid Reset Token"), 400);
 
     user.password = password;
     user.resetPasswordToken = undefined;
@@ -218,7 +218,7 @@ exports.resetPassword = async (req, res, next) => {
 
     return res
       .status(201)
-      .json({ success: true, data: 'Password Reset Success' });
+      .json({ success: true, data: "Password Reset Success" });
   } catch (error) {
     next(error);
   }
@@ -228,7 +228,7 @@ exports.resetPassword = async (req, res, next) => {
 exports.refreshJwtToken = async (req, res, next) => {
   const { refreshToken } = req.body;
 
-  if (!refreshToken) return next(new ErrorResponse('Provide Credentials', 400));
+  if (!refreshToken) return next(new ErrorResponse("Provide Credentials", 400));
 
   try {
     const decoded = jwt.verify(
@@ -237,7 +237,7 @@ exports.refreshJwtToken = async (req, res, next) => {
     );
     const user = await User.findById(decoded.id);
     if (!user)
-      return next(new ErrorResponse('Couldnt update Access Token', 404));
+      return next(new ErrorResponse("Couldnt update Access Token", 404));
 
     sendUserAuth(user, 200, res);
   } catch (error) {

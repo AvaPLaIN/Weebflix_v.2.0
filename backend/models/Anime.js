@@ -1,11 +1,11 @@
 //* IMPORTS
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //! SCHEMA
 const AnimeSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, 'Provide title'],
+    required: [true, "Provide title"],
     trim: true,
   },
   description: {
@@ -14,12 +14,12 @@ const AnimeSchema = new mongoose.Schema({
   },
   banner: {
     type: [String],
-    required: [true, 'Provide banner'],
+    required: [true, "Provide banner"],
     trim: true,
   },
   thumnail: {
     type: String,
-    required: [true, 'Provide thumnail'],
+    required: [true, "Provide thumnail"],
     trim: true,
   },
   logo: {
@@ -36,12 +36,12 @@ const AnimeSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: [true, 'Provide status'],
+    required: [true, "Provide status"],
     trim: true,
   },
   version: {
     type: String,
-    required: [true, 'Provide version'],
+    required: [true, "Provide version"],
     trim: true,
   },
   released: {
@@ -63,6 +63,6 @@ const AnimeSchema = new mongoose.Schema({
   },
 });
 
-const Anime = mongoose.model('Anime', AnimeSchema);
+const Anime = mongoose.model("Anime", AnimeSchema);
 
-module.exports = Anime;
+module.exports = { Anime, AnimeSchema };

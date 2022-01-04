@@ -1,14 +1,14 @@
 //* IMPORTS
 //     * REACT
-import React, { useState } from 'react';
+import { useState, useCallback } from "react";
 
 //     * COMPONENTS
-import { RegisterFormComponent } from './RegisterForm.styled';
-import Loading from '../../loading/Loading';
+import { RegisterFormComponent } from "./RegisterForm.styled";
+import Loading from "../../loading/Loading";
 
 //     * REDUX / STATES
-import { useDispatch, useSelector } from 'react-redux';
-import { user_register } from '../../../redux/ducks/user';
+import { useDispatch, useSelector } from "react-redux";
+import { user_register } from "../../../redux/ducks/user";
 
 //     * SERVICES
 
@@ -17,19 +17,19 @@ import { user_register } from '../../../redux/ducks/user';
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faUnlockAlt,
   faUser,
   faEye,
   faEyeSlash,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebookF,
   faTwitter,
   faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
+} from "@fortawesome/free-brands-svg-icons";
 
 //     * ASSETS
 
@@ -40,35 +40,38 @@ const RegisterForm = ({ showLogin }) => {
   //     * STATES
   const user = useSelector((state) => state.user);
   //          ! FORM STATES
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   //     * REFS
 
   //     * USE-EFFECT
 
-  //     * HANDLERS
-  const handleRegister = (event) => {
-    event.preventDefault();
-    dispatch(user_register({ username, email, password, confirmPassword }));
-
-    resetForm();
-  };
-
-  const handleToggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
-
   //     * EVENTS
-  const resetForm = () => {
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
-  };
+  const resetForm = useCallback(() => {
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  }, []);
+
+  //     * HANDLERS
+  const handleRegister = useCallback(
+    (event) => {
+      event.preventDefault();
+      dispatch(user_register({ username, email, password, confirmPassword }));
+
+      resetForm();
+    },
+    [confirmPassword, dispatch, email, password, resetForm, username]
+  );
+
+  const handleToggleShowPassword = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
 
   //     * RENDER
   return (
@@ -118,7 +121,7 @@ const RegisterForm = ({ showLogin }) => {
             <div className="input-container">
               <FontAwesomeIcon className="icon" icon={faUnlockAlt} />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="Password..."
                 value={password}
@@ -141,7 +144,7 @@ const RegisterForm = ({ showLogin }) => {
             <div className="input-container">
               <FontAwesomeIcon className="icon" icon={faUnlockAlt} />
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="confirm-password"
                 placeholder="Confirm Password..."
                 value={confirmPassword}
@@ -155,7 +158,7 @@ const RegisterForm = ({ showLogin }) => {
         </div>
 
         <button type="submit" disabled={user.loading}>
-          {user.loading ? <Loading /> : 'Register'}
+          {user.loading ? <Loading /> : "Register"}
         </button>
 
         <p className="server-error">{user.error}</p>

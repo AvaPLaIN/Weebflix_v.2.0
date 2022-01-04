@@ -6,7 +6,7 @@ import {
   HighlightItemContainer,
   ItemImage,
   ItemInfo,
-} from './HighlightItem.styled';
+} from "./HighlightItem.styled";
 
 //     * REDUX / STATES
 
@@ -17,9 +17,9 @@ import {
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 //     * ASSETS
 
@@ -51,7 +51,7 @@ const HighlightItem = ({ anime }) => {
           <p className="description">{anime?.description}</p>
           <div className="version">
             <span>
-              {anime?.title?.toLowerCase().includes('dub') ? 'DUB' : 'SUB'}
+              {anime?.title?.toLowerCase().includes("dub") ? "DUB" : "SUB"}
             </span>
           </div>
         </div>
@@ -60,7 +60,7 @@ const HighlightItem = ({ anime }) => {
             <FontAwesomeIcon className="icon" icon={faPlay} />
             <span>Play</span>
           </Link>
-          <Link to="/" className="button">
+          <Link to={{ pathname: `anime/${anime?._id}` }} className="button">
             <FontAwesomeIcon className="icon" icon={faInfoCircle} />
             <span>More...</span>
           </Link>

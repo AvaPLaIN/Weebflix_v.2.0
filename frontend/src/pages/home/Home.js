@@ -1,15 +1,16 @@
 //* IMPORTS
 //     * REACT
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 //     * COMPONENTS
-import { HomeContainer } from './Home.styled';
-import Navbar from '../../components/navbar/Navbar';
-import HighlightList from '../../components/highlight-list/HighlightList';
+import { HomeContainer } from "./Home.styled";
+import Navbar from "../../components/navbar/Navbar";
+import HighlightList from "../../components/home/highlight-list/HighlightList";
+import ProgressList from "../../components/home/progress-list/ProgressList";
 
 //     * REDUX / STATES
-import { useDispatch, useSelector } from 'react-redux';
-import { user_logout } from '../../redux/ducks/user';
+import { useDispatch, useSelector } from "react-redux";
+import { user_logout } from "../../redux/ducks/user";
 
 //     * SERVICES
 
@@ -50,23 +51,7 @@ const Home = () => {
     <HomeContainer>
       <Navbar />
       <HighlightList />
-      <div className="list">
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
-        </h1>
-        <h1>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero, sit.
-        </h1>
-      </div>
+      <ProgressList />
     </HomeContainer>
   );
 };
