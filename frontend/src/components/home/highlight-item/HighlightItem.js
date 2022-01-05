@@ -56,7 +56,10 @@ const HighlightItem = ({ anime }) => {
           </div>
         </div>
         <div className="buttons">
-          <Link to="/" className="button playBtn">
+          <Link
+            to={{ pathname: `anime/${anime?._id}/player` }}
+            className="button playBtn"
+          >
             <FontAwesomeIcon className="icon" icon={faPlay} />
             <span>Play</span>
           </Link>

@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import { HomeContainer } from "./Home.styled";
 import Navbar from "../../components/navbar/Navbar";
 import HighlightList from "../../components/home/highlight-list/HighlightList";
-import ProgressList from "../../components/home/progress-list/ProgressList";
 import Slider from "../../components/slider/Slider";
 
 //     * REDUX / STATES

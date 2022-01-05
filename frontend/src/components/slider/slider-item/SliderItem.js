@@ -17,11 +17,13 @@ import {
 //     * HOOKS
 
 //     * EXTERN LIBRARIES
+import LazyLoad from "react-lazyload";
 
 //     * ASSETS
 
 const ProgressItem = memo(({ anime }) => {
   //     * INIT
+  const { anime_id: progressAnime } = anime;
 
   //     * STATES
   //          ! REDUX
@@ -38,15 +40,23 @@ const ProgressItem = memo(({ anime }) => {
   //     * RENDER
 
   return (
-    <SliderItemContainer>
+    <SliderItemContainer
+      to={
+        progressAnime?._id
+          ? {
+              pathname: `/anime/${progressAnime?._id}/player`,
+            }
+          : {
+              pathname: `/anime/${anime?._id}`,
+            }
+      }
+    >
       <SliderItemImageContainer>
-        <img
-          className="item-image"
-          src={anime?.anime_id?.thumnail || anime?.thumnail}
-          alt=""
-        />
+        <LazyLoad className="item-image">
+          <img src={progressAnime?.thumnail || anime?.thumnail} alt="" />
+        </LazyLoad>
       </SliderItemImageContainer>
-      <h2>{anime?.anime_id?.title || anime?.title}</h2>
+      <h2>{progressAnime?.title || anime?.title}</h2>
       <p>{anime?.count && `${anime?.count}. Episode `}</p>
     </SliderItemContainer>
   );

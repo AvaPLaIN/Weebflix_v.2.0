@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //* EVENT COMPONENTS
 
 //* LOGIC COMPONENTS
 
 //* STYLED COMPONENTS
-export const SliderItemContainer = styled.div`
+export const SliderItemContainer = styled(Link)`
   min-width: 15rem;
   width: 15rem;
   display: flex;
@@ -17,7 +18,7 @@ export const SliderItemContainer = styled.div`
 
   h2,
   p {
-    white-space: nowrap;
+    text-align: center;
     width: 100%;
     font-size: 1.4rem;
     text-align: center;
@@ -54,9 +55,16 @@ export const SliderItemImageContainer = styled.div`
     width: calc(100% - 6px);
     height: calc(100% - 6px);
     border-radius: 50%;
-    object-fit: cover;
     z-index: 2;
     transition: 0.1s ease-in;
+    background-color: rgb(var(--background-color-dark-1));
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
   }
 
   &::after {

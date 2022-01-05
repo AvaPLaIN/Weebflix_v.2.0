@@ -45,7 +45,7 @@ export const SliderContainer = styled.div`
         height: 15rem;
         width: 15rem;
         border-radius: 50%;
-        background-color: rgb(var(--background-color-dark-2));
+        background-color: rgb(var(--background-color-dark-1));
         display: flex;
         align-items: center;
         justify-content: center;
@@ -62,7 +62,7 @@ export const SliderContainer = styled.div`
 
   .slider-list {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1.5rem;
     padding: 0 6rem 0 6rem;
     transition: all 0.7s ease-in-out;
