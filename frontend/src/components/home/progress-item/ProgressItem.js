@@ -1,51 +1,51 @@
-//* IMPORTS
-//     * REACT
-import { memo } from "react";
+// //* IMPORTS
+// //     * REACT
+// import { memo } from "react";
 
-//     * COMPONENTS
-import {
-  ProgressItemContainer,
-  ProgressItemImageContainer,
-} from "./ProgressItem.styled";
+// //     * COMPONENTS
+// import {
+//   ProgressItemContainer,
+//   ProgressItemImageContainer,
+// } from "./ProgressItem.styled";
 
-//     * REDUX / STATES
+// //     * REDUX / STATES
 
-//     * SERVICES
+// //     * SERVICES
 
-//     * UTILS
+// //     * UTILS
 
-//     * HOOKS
+// //     * HOOKS
 
-//     * EXTERN LIBRARIES
+// //     * EXTERN LIBRARIES
 
-//     * ASSETS
+// //     * ASSETS
 
-const ProgressItem = memo(({ anime }) => {
-  //     * INIT
+// const ProgressItem = memo(({ anime }) => {
+//   //     * INIT
 
-  //     * STATES
-  //          ! REDUX
-  //          ! STATE
+//   //     * STATES
+//   //          ! REDUX
+//   //          ! STATE
 
-  //     * REFS
+//   //     * REFS
 
-  //     * USE-EFFECT
+//   //     * USE-EFFECT
 
-  //     * HANDLERS
+//   //     * HANDLERS
 
-  //     * EVENTS
+//   //     * EVENTS
 
-  //     * RENDER
+//   //     * RENDER
 
-  return (
-    <ProgressItemContainer>
-      <ProgressItemImageContainer>
-        <img className="item-image" src={anime?.anime_id?.thumnail} alt="" />
-      </ProgressItemImageContainer>
-      <h2>{anime?.anime_id?.title}</h2>
-      <p>{anime?.count}. Episode</p>
-    </ProgressItemContainer>
-  );
-});
+//   return (
+//     <ProgressItemContainer>
+//       <ProgressItemImageContainer>
+//         <img className="item-image" src={anime?.anime_id?.thumnail} alt="" />
+//       </ProgressItemImageContainer>
+//       <h2>{anime?.anime_id?.title}</h2>
+//       <p>{anime?.count}. Episode</p>
+//     </ProgressItemContainer>
+//   );
+// });
 
-export default ProgressItem;
+// export default ProgressItem;

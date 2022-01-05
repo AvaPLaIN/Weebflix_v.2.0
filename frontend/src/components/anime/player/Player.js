@@ -23,7 +23,7 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const Anime = () => {
   //     * INIT
-  const anime = useOutletContext();
+  const { anime } = useOutletContext();
 
   //     * STATES
   //     ! REDUX

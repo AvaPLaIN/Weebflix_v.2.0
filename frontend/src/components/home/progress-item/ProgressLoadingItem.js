@@ -1,47 +1,47 @@
-//* IMPORTS
-//     * REACT
+// //* IMPORTS
+// //     * REACT
 
-//     * COMPONENTS
-import Loading from "../../loading/Loading"
+// //     * COMPONENTS
+// import Loading from "../../loading/Loading"
 
-//     * REDUX / STATES
+// //     * REDUX / STATES
 
-//     * SERVICES
+// //     * SERVICES
 
-//     * UTILS
+// //     * UTILS
 
-//     * HOOKS
+// //     * HOOKS
 
-//     * EXTERN LIBRARIES
+// //     * EXTERN LIBRARIES
 
-//     * ASSETS
+// //     * ASSETS
 
-const ProgressLoadingItem = () => {
-  //     * INIT
+// const ProgressLoadingItem = () => {
+//   //     * INIT
 
-  //     * STATES
-  //          ! REDUX
-  //          ! STATE
+//   //     * STATES
+//   //          ! REDUX
+//   //          ! STATE
 
-  //     * REFS
+//   //     * REFS
 
-  //     * USE-EFFECT
+//   //     * USE-EFFECT
 
-  //     * CUSTOM HOOKS
+//   //     * CUSTOM HOOKS
 
-  //     * HANDLERS
+//   //     * HANDLERS
 
-  //     * EVENTS
+//   //     * EVENTS
 
-  //     * RENDER
+//   //     * RENDER
 
-  return (
-    <div className="progress-loading-item">
-      <div className="loading-item-image"><Loading /></div>
-      <div className="loading-item-title"></div>
-      <div className="loading-item-episode"></div>
-    </div>
-  );
-};
+//   return (
+//     <div className="progress-loading-item">
+//       <div className="loading-item-image"><Loading /></div>
+//       <div className="loading-item-title"></div>
+//       <div className="loading-item-episode"></div>
+//     </div>
+//   );
+// };
 
-export default ProgressLoadingItem;
+// export default ProgressLoadingItem;

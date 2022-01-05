@@ -3,6 +3,7 @@
 import React, { useEffect, lazy, Suspense } from "react";
 
 //     * PAGES
+import Auth from "./pages/authentication/auth/Auth";
 
 //     * COMPONENTS
 import { AppContainer } from "./App.styled";
@@ -26,7 +27,6 @@ import { Routes, Route } from "react-router-dom";
 //     * PAGES - lazy
 const Home = lazy(() => import("./pages/home/Home"));
 const Anime = lazy(() => import("./pages/anime/Anime"));
-const Auth = lazy(() => import("./pages/authentication/auth/Auth"));
 const RequestPassword = lazy(() =>
   import("./pages/authentication/request-password/RequestPassword")
 );

@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { AnimeContainer } from "./Anime.styled";
 import Menu from "../../components/anime/menu/Menu";
-import Loading from "../../components/loading/Loading";
 
 //     * REDUX / STATES
 import { useSelector } from "react-redux";
@@ -42,9 +41,7 @@ const Anime = () => {
   useEffect(() => {
     const fetchAnimeById = async () => {
       const data = await getAnimeById(accessToken, id);
-      if (data.success) {
-        setAnime(data?.data);
-      }
+      if (data.success) setAnime(data?.data);
     };
 
     fetchAnimeById();
@@ -86,7 +83,7 @@ const Anime = () => {
           </div>
         </div>
       </div>
-      <Outlet context={anime} />
+      <Outlet context={{ anime, accessToken }} />
     </AnimeContainer>
   );
 };

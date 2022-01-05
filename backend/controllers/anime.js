@@ -57,3 +57,25 @@ exports.getAnimeById = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getSimilarAnimesToTitle = async (req, res, next) => {
+  const { title } = req?.params;
+
+  if (!title) return next(new ErrorResponse("No Similar Animes Found", 404));
+
+  try {
+    const similarAnimes = await Anime.find({
+      title: { $regex: new RegExp(`.*${title}.*`), $options: "i" },
+    }).select(["_id", "title", "thumnail"]);
+
+    if (!similarAnimes)
+      return next(new ErrorResponse("No Similar Animes Found", 404));
+
+    res.status(200).json({
+      success: true,
+      data: similarAnimes,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

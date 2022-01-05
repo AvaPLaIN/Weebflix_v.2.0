@@ -1,52 +1,52 @@
-//* IMPORTS
-//     * REACT
-import { useState, useLayoutEffect } from "react";
+// //* IMPORTS
+// //     * REACT
+// import { useState, useLayoutEffect } from "react";
 
-//     * COMPONENTS
-import ProgressLoadingItem from "../progress-item/ProgressLoadingItem";
+// //     * COMPONENTS
+// import ProgressLoadingItem from "../progress-item/ProgressLoadingItem";
 
-//     * REDUX / STATES
+// //     * REDUX / STATES
 
-//     * SERVICES
+// //     * SERVICES
 
-//     * UTILS
+// //     * UTILS
 
-//     * HOOKS
+// //     * HOOKS
 
-//     * EXTERN LIBRARIES
+// //     * EXTERN LIBRARIES
 
-//     * ASSETS
+// //     * ASSETS
 
-const ProgressLoadingList = () => {
-  //     * INIT
+// const ProgressLoadingList = () => {
+//   //     * INIT
 
-  //     * STATES
-  //          ! REDUX
-  //          ! STATE
-  const [loadingItemsCount, setLoadingItemsCount] = useState(0);
+//   //     * STATES
+//   //          ! REDUX
+//   //          ! STATE
+//   const [loadingItemsCount, setLoadingItemsCount] = useState(0);
 
-  //     * REFS
+//   //     * REFS
 
-  //     * USE-EFFECT
-  useLayoutEffect(() => {
-    setLoadingItemsCount(Math.round(window.innerWidth / 150) - 2);
-  }, []);
+//   //     * USE-EFFECT
+//   useLayoutEffect(() => {
+//     setLoadingItemsCount(Math.round(window.innerWidth / 150) - 2);
+//   }, []);
 
-  //     * CUSTOM HOOKS
+//   //     * CUSTOM HOOKS
 
-  //     * HANDLERS
+//   //     * HANDLERS
 
-  //     * EVENTS
+//   //     * EVENTS
 
-  //     * RENDER
+//   //     * RENDER
 
-  return (
-    <div className="progress-loading-list">
-      {Array.from(Array(loadingItemsCount).keys()).map((item) => (
-        <ProgressLoadingItem key={item} />
-      ))}
-    </div>
-  );
-};
+//   return (
+//     <div className="progress-loading-list">
+//       {Array.from(Array(loadingItemsCount).keys()).map((item) => (
+//         <ProgressLoadingItem key={item} />
+//       ))}
+//     </div>
+//   );
+// };
 
-export default ProgressLoadingList;
+// export default ProgressLoadingList;
