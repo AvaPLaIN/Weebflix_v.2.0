@@ -57,7 +57,9 @@ const ProgressItem = memo(({ anime }) => {
         </LazyLoad>
       </SliderItemImageContainer>
       <h2>{progressAnime?.title || anime?.title}</h2>
-      <p>{anime?.count && `${anime?.count}. Episode `}</p>
+      <p>
+        {typeof anime?.count === "number" && `${anime?.count + 1}. Episode `}
+      </p>
     </SliderItemContainer>
   );
 });

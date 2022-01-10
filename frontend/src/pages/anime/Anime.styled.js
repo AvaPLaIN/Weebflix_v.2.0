@@ -77,4 +77,10 @@ export const AnimeContainer = styled.div`
       }
     }
   }
+
+  @media (max-width: 600px) {
+    .thumnail-container {
+      display: none;
+    }
+  }
 `;

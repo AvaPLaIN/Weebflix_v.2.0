@@ -12,6 +12,7 @@ import Loading from "./components/loading/Loading";
 //     * REDUX / STATES
 import { useSelector, useDispatch } from "react-redux";
 import { user_auth } from "./redux/ducks/user";
+import { fetch_progress_anime_list } from "./redux/ducks/anime";
 
 //     * SERVICES
 
@@ -56,6 +57,10 @@ function App() {
     if (user?.user) dispatch(user_auth(user?.user));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    dispatch(fetch_progress_anime_list(user?.user?.accessToken));
+  }, [dispatch, user?.user?.accessToken]);
 
   //     * HANDLERS
 

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { AnimeContainer } from "./Anime.styled";
 import Menu from "../../components/anime/menu/Menu";
+import Recommendations from "../../components/anime/recommendations/Recommendations";
 
 //     * REDUX / STATES
 import { useSelector } from "react-redux";
@@ -83,7 +84,10 @@ const Anime = () => {
           </div>
         </div>
       </div>
-      <Outlet context={{ anime, accessToken }} />
+      {anime?._id && <Outlet context={{ anime, accessToken }} />}
+      {anime?._id && (
+        <Recommendations anime={anime} accessToken={accessToken} />
+      )}
     </AnimeContainer>
   );
 };

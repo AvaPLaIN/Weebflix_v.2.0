@@ -1,6 +1,6 @@
 //* IMPORTS
 //     * SERVICES
-import { getProgressAnimeList } from "../../services/anime";
+import { getProgressAnimeList, updateProgressAnimeList } from "../../services/anime";
 
 //* CONSTANTS
 //     * DATA
@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
 };
 
 //* ACTIONS
-//     * REGISTER
+//     * PROGRESS LIST
 export const fetch_progress_anime_list_request = () => {
   return { type: FETCH_PROGRESS_ANIME_LIST_REQUEST };
 };
@@ -65,6 +65,16 @@ export const fetch_progress_anime_list = (accessToken) => async (dispatch) => {
   dispatch(fetch_progress_anime_list_request());
 
   const data = await getProgressAnimeList(accessToken);
+
+  if (data?.error && !data?.success)
+    return dispatch(fetch_progress_anime_list_failure(data?.error));
+
+  return dispatch(fetch_progress_anime_list_success(data?.data));
+};
+export const update_progress_anime_list = (accessToken, animeID, indexOfProgressAnime, episodeCount, status) => async (dispatch) => {
+  dispatch(fetch_progress_anime_list_request());
+
+  const data = await updateProgressAnimeList(accessToken, animeID, indexOfProgressAnime, episodeCount, status);
 
   if (data?.error && !data?.success)
     return dispatch(fetch_progress_anime_list_failure(data?.error));

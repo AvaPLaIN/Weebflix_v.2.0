@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 //     * COMPONENTS
+import { SimilarContainer } from "./Similar.styled";
 import Slider from "../../slider/Slider";
 
 //     * REDUX / STATES
@@ -45,9 +46,13 @@ const Similar = () => {
 
   //     * RENDER
   return (
-    <div>
-      <Slider list={similarAnimes} header="similar" />
-    </div>
+    <>
+      {similarAnimes?.length > 0 && (
+        <SimilarContainer>
+          <Slider list={similarAnimes} header="similar" />
+        </SimilarContainer>
+      )}
+    </>
   );
 };
 

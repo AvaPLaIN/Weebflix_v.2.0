@@ -5,4 +5,4 @@ import styled from "styled-components";
 //* LOGIC COMPONENTS
 
 //* STYLED COMPONENTS
-export const SimilarContainer = styled.div``;
+export const RecommendationsContainer = styled.div``;

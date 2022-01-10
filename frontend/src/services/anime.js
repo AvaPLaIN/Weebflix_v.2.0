@@ -1,6 +1,7 @@
 //* IMPORTS
 import axios from "axios";
 import { trimAnimeTitle } from "../utils/trimAnimeTitle";
+import { reduceAnimeGenres } from "../utils/reduceAnimeGenres";
 
 //* CONSTANTS
 const PROXY_URL = "http://localhost:8800/api/anime";
@@ -29,6 +30,33 @@ export const getProgressAnimeList = async (accessToken) => {
   }
 };
 
+export const updateProgressAnimeList = async (
+  accessToken,
+  animeID,
+  indexOfProgressAnime,
+  episodeCount,
+  status
+) => {
+  try {
+    const data = await axios.post(
+      `${PROXY_URL}/updateProgressAnimeList`,
+      {
+        animeID,
+        indexOfProgressAnime,
+        episodeCount,
+        status,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    console.log("after update progress List: ", data.data);
+    return data?.data;
+  } catch (error) {
+    return error?.response?.data;
+  }
+};
+
 export const getAnimeById = async (accessToken, id) => {
   try {
     const data = await axios.get(`${PROXY_URL}/getAnimeById/${id}`, {
@@ -44,6 +72,37 @@ export const getSimilarAnimeAsAnimeTitle = async (accessToken, title) => {
   try {
     const data = await axios.get(
       `${PROXY_URL}/getSimilarAnimesToTitle/${trimAnimeTitle(title)}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return data?.data;
+  } catch (error) {
+    return error?.response?.data;
+  }
+};
+
+export const getRecommendationAnimesByGenres = async (accessToken, genres) => {
+  if (!genres) return;
+  const reducedAnimeGenres = reduceAnimeGenres(genres);
+  try {
+    const data = await axios.get(
+      `${PROXY_URL}/getRecommendationAnimesByGenres/${reducedAnimeGenres}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return data?.data;
+  } catch (error) {
+    return error?.response?.data;
+  }
+};
+
+export const getSearchAnimesByTitle = async (accessToken, title) => {
+  if (!title) return;
+  try {
+    const data = await axios.get(
+      `${PROXY_URL}/getSimilarAnimesToTitle/${title}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
