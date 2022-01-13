@@ -15,6 +15,8 @@ export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
 
   .search-container {
     width: 100%;

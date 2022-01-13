@@ -6,8 +6,11 @@ import styled from "styled-components";
 
 //* STYLED COMPONENTS
 export const AnimeContainer = styled.div`
+  overflow-x: hidden;
+
   .anime-container {
-    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 
     .banner-container {
       width: 100%;

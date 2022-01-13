@@ -16,7 +16,7 @@ import { SearchItemContainer } from "./SearchItem.styled";
 
 //     * ASSETS
 
-const SearchItem = ({ anime }) => {
+const SearchItem = ({ anime, handleCloseSearchSection }) => {
   //     * INIT
 
   //     * STATES
@@ -31,7 +31,12 @@ const SearchItem = ({ anime }) => {
 
   //     * RENDER
   return (
-    <SearchItemContainer>
+    <SearchItemContainer
+      to={{
+        pathname: `/anime/${anime?._id}`,
+      }}
+      onClick={() => setTimeout(handleCloseSearchSection, 300)}
+    >
       <div className="thumnail">
         <img src={anime?.thumnail} alt="" />
       </div>

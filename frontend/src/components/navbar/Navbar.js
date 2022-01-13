@@ -55,6 +55,8 @@ const Navbar = () => {
     dispatch(user_logout());
   };
 
+  const handleCloseSearchSection = () => setSearchInputIsOpen(false);
+
   //     * EVENTS
   window.onscroll = useCallback(() => {
     setWindowIsScrolled(window.pageYOffset ? true : false);
@@ -97,13 +99,13 @@ const Navbar = () => {
             value={searchInputValue}
             onChange={(e) => setSearchInputValue(e.target.value)}
           />
-          {/* {searchInputIsOpen && (
+          {searchInputIsOpen && (
             <FontAwesomeIcon
               icon={faTimes}
               onClick={() => setSearchInputValue("")}
-              className="clear"
+              className="icon"
             />
-          )} */}
+          )}
         </div>
         <div className="account-container">
           <div className="avatar">{user?.username[0]}</div>
@@ -150,6 +152,7 @@ const Navbar = () => {
         <Search
           searchValue={searchInputValue}
           accessToken={user?.accessToken}
+          handleCloseSearchSection={handleCloseSearchSection}
         />
       )}
     </NavbarContainer>

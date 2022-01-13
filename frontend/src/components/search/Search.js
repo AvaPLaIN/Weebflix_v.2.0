@@ -23,7 +23,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const DEBOUNCE_TIME = 800;
 
-const Navbar = ({ searchValue, accessToken }) => {
+const Navbar = ({ searchValue, accessToken, handleCloseSearchSection }) => {
   //     * INIT
 
   //     * STATES
@@ -66,7 +66,11 @@ const Navbar = ({ searchValue, accessToken }) => {
               scrollableTarget="search-list-container"
             >
               {searchAnimes?.map((anime) => (
-                <SearchItem anime={anime} key={anime._id} />
+                <SearchItem
+                  anime={anime}
+                  key={anime._id}
+                  handleCloseSearchSection={handleCloseSearchSection}
+                />
               ))}
             </InfiniteScroll>
           )}

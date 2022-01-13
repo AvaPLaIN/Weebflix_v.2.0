@@ -88,32 +88,26 @@ export const ControlsContainer = styled.div`
   padding: 0 3rem;
 
   .search-container {
-    position: relative;
+    display: flex;
+    align-items: center;
+    gap: ${(props) => (props.searchInputIsOpen ? "2rem" : "0rem")};
+    background-color: rgb(var(--background-color-dark-1));
+    height: 38px;
+    padding: 0 1rem;
+    border-radius: 1rem;
 
     .icon {
-      position: absolute;
-      top: 50%;
-      left: 1.5rem;
-      transform: translateY(-50%);
-      color: rgb(var(--font-color-dark-4));
-      color: ${(props) =>
-        props.searchInputIsOpen
-          ? "rgb(var(--font-color-bright-4))"
-          : "rgb(var(--font-color-dark-4))"};
-      font-size: 2rem;
       cursor: pointer;
-      transition: all 0.3s ease-in-out;
+      font-size: 1.8rem;
     }
 
     input {
-      width: ${(props) => (props.searchInputIsOpen ? "250px" : "0px")};
-      padding: 1rem 1rem 1rem 4.5rem;
-      font-size: 1.6rem;
-      color: rgb(var(--font-color-bright-1));
-      background-color: rgb(var(--background-color-dark-1));
+      height: 100%;
       border: none;
       outline: none;
-      border-radius: 1rem;
+      color: rgb(var(--font-color-bright-1));
+      background-color: rgb(var(--background-color-dark-1));
+      width: ${(props) => (props.searchInputIsOpen ? "200px" : "0px")};
       transition: all 0.3s ease-in-out;
 
       &::placeholder {
@@ -242,7 +236,7 @@ export const ControlsContainer = styled.div`
   @media (max-width: 550px) {
     .search-container {
       input {
-        width: ${(props) => (props.searchInputIsOpen ? "200px" : "0px")};
+        width: ${(props) => (props.searchInputIsOpen ? "120px" : "0px")};
       }
     }
   }

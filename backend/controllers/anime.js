@@ -115,7 +115,9 @@ exports.getSimilarAnimesToTitle = async (req, res, next) => {
   try {
     const similarAnimes = await Anime.find({
       title: { $regex: new RegExp(`.*${title}.*`), $options: "i" },
-    }).select(["_id", "title", "thumnail", "banner"]);
+    })
+      .limit(100)
+      .select(["_id", "title", "thumnail", "banner"]);
 
     if (!similarAnimes)
       return next(new ErrorResponse("No Similar Animes Found", 404));

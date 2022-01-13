@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 //* EVENT COMPONENTS
 
 //* LOGIC COMPONENTS
 
 //* STYLED COMPONENTS
-export const SearchItemContainer = styled.div`
+export const SearchItemContainer = styled(Link)`
   width: 200px;
   overflow: hidden;
   display: flex;
@@ -24,6 +25,7 @@ export const SearchItemContainer = styled.div`
       width: 100%;
       object-fit: cover;
       background-position: center;
+      transition: all 0.1s ease-in-out;
     }
   }
 
@@ -35,6 +37,14 @@ export const SearchItemContainer = styled.div`
     h3 {
       font-size: 1.3rem;
       color: rgb(var(--font-color-bright-1));
+    }
+  }
+
+  &:hover {
+    .thumnail {
+      img {
+        transform: scale(1.1);
+      }
     }
   }
 `;
