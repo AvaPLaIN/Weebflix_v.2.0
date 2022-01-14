@@ -9,6 +9,7 @@ const {
   getSimilarAnimesToTitle,
   getRecommendationAnimesByGenres,
   updateProgressAnimeList,
+  updateProgressAnimeListStats,
 } = require("../controllers/anime");
 
 //! IMPORT MIDDLEWARE
@@ -24,5 +25,10 @@ router.get(
   getRecommendationAnimesByGenres
 );
 router.post("/updateProgressAnimeList", protect, updateProgressAnimeList);
+router.post(
+  "/updateProgressAnimeListStats",
+  protect,
+  updateProgressAnimeListStats
+);
 
 module.exports = router;

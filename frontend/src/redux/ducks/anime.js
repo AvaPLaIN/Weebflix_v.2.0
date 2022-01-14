@@ -1,6 +1,10 @@
 //* IMPORTS
 //     * SERVICES
-import { getProgressAnimeList, updateProgressAnimeList } from "../../services/anime";
+import {
+  getProgressAnimeList,
+  updateProgressAnimeList,
+  updateProgressAnimeListStats,
+} from "../../services/anime";
 
 //* CONSTANTS
 //     * DATA
@@ -10,6 +14,13 @@ export const FETCH_PROGRESS_ANIME_LIST_SUCCESS =
   "REDUX/ANIME/FETCH_PROGRESS_ANIME_LIST_SUCCESS";
 export const FETCH_PROGRESS_ANIME_LIST_FAILURE =
   "REDUX/ANIME/FETCH_PROGRESS_ANIME_LIST_FAILURE";
+
+export const UPDATE_PROGRESS_ANIME_LIST_REQUEST =
+  "REDUX/ANIME/UPDATE_PROGRESS_ANIME_LIST_REQUEST";
+export const UPDATE_PROGRESS_ANIME_LIST_SUCCESS =
+  "REDUX/ANIME/UPDATE_PROGRESS_ANIME_LIST_SUCCESS";
+export const UPDATE_PROGRESS_ANIME_LIST_FAILURE =
+  "REDUX/ANIME/UPDATE_PROGRESS_ANIME_LIST_FAILURE";
 
 //* INIT
 const initialState = {
@@ -32,6 +43,23 @@ const reducer = (state = initialState, action) => {
         error: "",
       };
     case FETCH_PROGRESS_ANIME_LIST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        progressList: [],
+        error: action.payload,
+      };
+
+    case UPDATE_PROGRESS_ANIME_LIST_REQUEST:
+      return { ...state, loading: true };
+    case UPDATE_PROGRESS_ANIME_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        progressList: action.payload,
+        error: "",
+      };
+    case UPDATE_PROGRESS_ANIME_LIST_FAILURE:
       return {
         ...state,
         loading: false,
@@ -71,16 +99,58 @@ export const fetch_progress_anime_list = (accessToken) => async (dispatch) => {
 
   return dispatch(fetch_progress_anime_list_success(data?.data));
 };
-export const update_progress_anime_list = (accessToken, animeID, indexOfProgressAnime, episodeCount, status) => async (dispatch) => {
-  dispatch(fetch_progress_anime_list_request());
 
-  const data = await updateProgressAnimeList(accessToken, animeID, indexOfProgressAnime, episodeCount, status);
-
-  if (data?.error && !data?.success)
-    return dispatch(fetch_progress_anime_list_failure(data?.error));
-
-  return dispatch(fetch_progress_anime_list_success(data?.data));
+//     * PROGRESS LIST UPDATE
+export const update_progress_anime_list_request = () => {
+  return { type: UPDATE_PROGRESS_ANIME_LIST_REQUEST };
 };
+export const update_progress_anime_list_success = (progressAnimeList) => {
+  return {
+    type: UPDATE_PROGRESS_ANIME_LIST_SUCCESS,
+    payload: progressAnimeList,
+  };
+};
+export const update_progress_anime_list_failure = (error) => {
+  return {
+    type: UPDATE_PROGRESS_ANIME_LIST_FAILURE,
+    payload: error,
+  };
+};
+export const update_progress_anime_list =
+  (accessToken, animeID, indexOfProgressAnime, episodeCount, status) =>
+  async (dispatch) => {
+    dispatch(update_progress_anime_list_request());
+
+    const data = await updateProgressAnimeList(
+      accessToken,
+      animeID,
+      indexOfProgressAnime,
+      episodeCount,
+      status
+    );
+
+    if (data?.error && !data?.success)
+      return dispatch(update_progress_anime_list_failure(data?.error));
+
+    return dispatch(update_progress_anime_list_success(data?.data));
+  };
+export const update_progress_anime_list_stats =
+  (accessToken, status, progressID, count, rating) => async (dispatch) => {
+    dispatch(update_progress_anime_list_request());
+
+    const data = await updateProgressAnimeListStats(
+      accessToken,
+      progressID,
+      status,
+      count,
+      rating
+    );
+
+    if (data?.error && !data?.success)
+      return dispatch(update_progress_anime_list_failure(data?.error));
+
+    return dispatch(update_progress_anime_list_success(data?.data));
+  };
 
 //* EXPORT
 export default reducer;

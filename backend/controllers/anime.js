@@ -2,6 +2,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 const { Anime } = require("../models/Anime");
 const { AnimeProgress } = require("../models/AnimeProgress");
+const { mongoose } = require("mongoose");
 
 exports.getHighlightList = async (req, res, next) => {
   try {
@@ -46,43 +47,82 @@ exports.getProgressList = async (req, res, next) => {
 exports.updateProgressAnimeList = async (req, res, next) => {
   const { animeID, indexOfProgressAnime, episodeCount, status } = req?.body;
 
-  if (indexOfProgressAnime === -1) {
-    const newAnimeProgress = await AnimeProgress.create({
-      anime_id: animeID,
-      count: episodeCount,
-      status,
-      rating: -1,
+  try {
+    if (indexOfProgressAnime === -1) {
+      const newAnimeProgress = await AnimeProgress.create({
+        anime_id: animeID,
+        count: episodeCount,
+        status,
+        rating: -1,
+      });
+      if (!newAnimeProgress)
+        return next(new ErrorResponse("something went wrong", 400));
+      await newAnimeProgress.save();
+
+      req.user.progress.unshift(newAnimeProgress._id);
+    } else {
+      const progressID = req.user.progress[indexOfProgressAnime];
+      const progressItem = await AnimeProgress.findOne({ _id: progressID });
+      if (!progressItem)
+        return next(new ErrorResponse("something went wrong", 400));
+
+      progressItem.count = episodeCount;
+      progressItem.status = status;
+      await progressItem.save();
+
+      req.user.progress.splice(indexOfProgressAnime, 1);
+      req.user.progress.unshift(progressID);
+    }
+
+    await req?.user.save();
+
+    const { progress } = await req.user.populate({
+      path: "progress",
+      populate: {
+        path: "anime_id",
+        model: "Anime",
+      },
     });
-    if (!newAnimeProgress)
-      return next(new ErrorResponse("something went wrong", 400));
-    await newAnimeProgress.save();
 
-    req.user.progress.unshift(newAnimeProgress._id);
-  } else {
-    const progressID = req.user.progress[indexOfProgressAnime];
-    const progressItem = await AnimeProgress.findOne({ _id: progressID });
-    if (!progressItem)
-      return next(new ErrorResponse("something went wrong", 400));
-
-    progressItem.count = episodeCount;
-    progressItem.status = status;
-    await progressItem.save();
-
-    req.user.progress.splice(indexOfProgressAnime, 1);
-    req.user.progress.unshift(progressID);
+    res.status(200).json({
+      success: true,
+      data: progress,
+    });
+  } catch (error) {
+    next(error);
   }
+};
 
-  await req?.user.save();
-
-  const { progress } = await req.user.populate({
-    path: "progress",
-    populate: {
-      path: "anime_id",
-      model: "Anime",
-    },
-  });
+exports.updateProgressAnimeListStats = async (req, res, next) => {
+  const { progressID, rating, status, count } = req?.body;
 
   try {
+    const progressAnime = await AnimeProgress.findById(progressID);
+    if (!progressAnime)
+      return next(new ErrorResponse("something went wrong", 400));
+
+    if (status === "deleted") {
+      await progressAnime.remove();
+      const index = req.user.progress.findIndex(
+        (id) => String(id) == String(progressAnime._id)
+      );
+      req.user.progress.splice(index, 1);
+      await req.user.save();
+    } else {
+      progressAnime.rating = rating;
+      progressAnime.status = status;
+      progressAnime.count = count;
+      await progressAnime.save();
+    }
+
+    const { progress } = await req.user.populate({
+      path: "progress",
+      populate: {
+        path: "anime_id",
+        model: "Anime",
+      },
+    });
+
     res.status(200).json({
       success: true,
       data: progress,

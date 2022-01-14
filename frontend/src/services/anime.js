@@ -50,7 +50,32 @@ export const updateProgressAnimeList = async (
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
-    console.log("after update progress List: ", data.data);
+    return data?.data;
+  } catch (error) {
+    return error?.response?.data;
+  }
+};
+
+export const updateProgressAnimeListStats = async (
+  accessToken,
+  progressID,
+  status,
+  count,
+  rating
+) => {
+  try {
+    const data = await axios.post(
+      `${PROXY_URL}/updateProgressAnimeListStats`,
+      {
+        progressID,
+        status,
+        count,
+        rating,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
     return data?.data;
   } catch (error) {
     return error?.response?.data;

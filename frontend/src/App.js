@@ -28,6 +28,7 @@ import { Routes, Route } from "react-router-dom";
 //     * PAGES - lazy
 const Home = lazy(() => import("./pages/home/Home"));
 const Anime = lazy(() => import("./pages/anime/Anime"));
+const MyList = lazy(() => import("./pages/my-list/MyList"));
 const RequestPassword = lazy(() =>
   import("./pages/authentication/request-password/RequestPassword")
 );
@@ -73,17 +74,13 @@ function App() {
         <Routes>
           {user?.isLoggedIn ? (
             <>
-              <Route
-                path="*"
-                exact
-                element={<Home />}
-                activeClassName="active"
-              />
+              <Route path="*" exact element={<Home />} />
               <Route path="anime/:id" element={<Anime />}>
                 <Route path="info" element={<Info />} />
                 <Route path="player" element={<Player />} />
                 <Route path="similar" element={<Similar />} />
               </Route>
+              <Route path="myList" exact element={<MyList />} />
             </>
           ) : (
             <>
