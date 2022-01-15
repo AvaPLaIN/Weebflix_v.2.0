@@ -13,6 +13,7 @@ export const ProgressItemContainer = styled.div`
   box-shadow: 0px 0px 14px 0px rgba(255, 255, 255, 0.14);
   position: relative;
   background-color: rgb(var(--background-color-dark-1));
+  cursor: move;
 
   .content-container {
     display: flex;

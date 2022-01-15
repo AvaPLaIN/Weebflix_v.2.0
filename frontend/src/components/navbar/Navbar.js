@@ -73,10 +73,7 @@ const Navbar = () => {
             alt=""
           />
         </Link>
-        <NavLink to="/rating" activeClassName="selected">
-          Rating
-        </NavLink>
-        <NavLink to="/mylist" activeClassName="selected">
+        <NavLink to="/mylist" activeclassname="selected">
           My List
         </NavLink>
       </NavigationContainer>
@@ -124,20 +121,13 @@ const Navbar = () => {
             <Link to="/" onClick={() => setNavbarIsOpen((prev) => !prev)}>
               Homepage
             </Link>
-            <NavLink
-              to="/rating"
-              activeClassName="selected"
-              onClick={() => setNavbarIsOpen((prev) => !prev)}
-            >
-              Rating
-            </NavLink>
-            <NavLink
+            <Link
               to="/mylist"
-              activeClassName="selected"
+              activeclassname="selected"
               onClick={() => setNavbarIsOpen((prev) => !prev)}
             >
               My List
-            </NavLink>
+            </Link>
             <p onClick={handleLogout}>Logout</p>
             <div
               className="close-menu"

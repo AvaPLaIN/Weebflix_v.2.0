@@ -10,5 +10,7 @@ export const ProgressListContainer = styled.div`
     justify-content: center;
     gap: 6rem;
     flex-wrap: wrap;
+    min-height: 90vh;
+    padding-bottom: 30rem;
   }
 `;

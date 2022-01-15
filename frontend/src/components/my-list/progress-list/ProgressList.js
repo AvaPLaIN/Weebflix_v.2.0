@@ -9,7 +9,10 @@ import Loading from "../../loading/Loading";
 
 //     * REDUX / STATES
 import { useSelector, useDispatch } from "react-redux";
-import { update_progress_anime_list_stats } from "../../../redux/ducks/anime";
+import {
+  update_progress_anime_list_stats,
+  update_progress_anime_list_success,
+} from "../../../redux/ducks/anime";
 
 //     * SERVICES
 
@@ -19,6 +22,7 @@ import { update_progress_anime_list_stats } from "../../../redux/ducks/anime";
 
 //     * EXTERN LIBRARIES
 import InfiniteScroll from "react-infinite-scroll-component";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 //     * ASSETS
 
@@ -63,27 +67,61 @@ const ProgressList = () => {
     );
   };
 
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(progressList);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    dispatch(update_progress_anime_list_success(items));
+  };
+
   //     * EVENTS
 
   //     * RENDER
   return (
-    <ProgressListContainer>
-      <InfiniteScroll
-        className="my-list-container"
-        dataLength={animes?.length}
-        next={handleAddMoreProgressAnimes}
-        hasMore={animes?.length < progressList?.length}
-        loader={<Loading />}
-      >
-        {animes?.map((anime) => (
-          <ProgressItem
-            key={anime?._id}
-            anime={anime}
-            updateAnime={handleUpdateProgressAnimeStatus}
-          />
-        ))}
-      </InfiniteScroll>
-    </ProgressListContainer>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="characters">
+        {(provided) => (
+          <ProgressListContainer
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            <InfiniteScroll
+              className="my-list-container"
+              dataLength={animes?.length}
+              next={handleAddMoreProgressAnimes}
+              hasMore={animes?.length < progressList?.length}
+              loader={<Loading />}
+            >
+              {animes?.map((anime, index) => (
+                <Draggable
+                  key={anime?._id}
+                  draggableId={anime?._id}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <ProgressItem
+                        key={anime?._id}
+                        anime={anime}
+                        updateAnime={handleUpdateProgressAnimeStatus}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            </InfiniteScroll>
+            {provided.placeholder}
+          </ProgressListContainer>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 
